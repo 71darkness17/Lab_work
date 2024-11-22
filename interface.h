@@ -138,5 +138,6 @@ void game(int ** sudoku, int mode, int hide) {
     set_to_end(mode);
     if(end == 1) printf("Maybe next time(");
     else printf("You won!!!");
+    free_matrix(marked,hide);
 }
 #endif
