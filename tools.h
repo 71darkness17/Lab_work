@@ -3,6 +3,7 @@
 #define ITEM struct Item
 #include<stdio.h>
 #include<windows.h>
+    //обьявление структуры для хранения данных о текущей ячейке
     struct Item {
         int value;
         int row;
@@ -12,14 +13,16 @@
         int square_size;
     };
 
-
+    // функция генерирующая структуру ячейки
     struct Item generate_item(int value, int row,int column,int mode) {
         struct Item item;
-        item.value = value;
+        item.value = value; // значение ячейки
+        //координаты
         item.row = row;
         item.column = column;
-        item.mode = mode;
-        int square = 0;
+        item.mode = mode; // размерность судоку
+        int square = 0; // размерность квадрата в судоку
+        // нахождение квадрата в судоку
         if(mode == 4){
             item.square_size = 2;
             if(row > 1) square+=2;
@@ -35,6 +38,7 @@
         item.square = square;
         return item;
     }
+    // проверка есть ли повторения в строке 
     int is_in_row(struct Item item, int ** sudoku){
         int answer = 0;
         for(int i = 0;i<item.mode;i++){
@@ -44,6 +48,7 @@
         }
         return answer;
     }
+    // проверка есть ли повторения в колонке
     int is_in_column(struct Item item,int ** sudoku) {
         int answer = 0;
         for(int i = 0;i<item.mode;i++){
@@ -53,6 +58,7 @@
         }
         return answer;
     }
+    // Проверка есть ли в квадрате
     int is_in_square(struct Item item, int ** sudoku){
         int answer = 0;
         //puts("12\n");
@@ -66,6 +72,7 @@
             }
         return answer;
     }
+    // вывод судоку
     void print_sudoku(int ** sudoku, int mode) {
         puts("\n");
         for(int i = 0; i<mode;i++){
@@ -76,6 +83,7 @@
             puts("\n");
         }
     }
+    // генерация массива с хранением координат пропущенных цифр в судоку
     int ** get_positions(int** sudoku, int mode, int hide) {
         int ** pos = (int**) calloc(hide, sizeof(int*));
         int g = 0;
@@ -94,6 +102,7 @@
         }
         return pos;
     }
+    // освобождение двумерного массива
     void free_matrix(int**sudoku,int mode){
     for(int i = 0;i<mode;i++){
         free(*(sudoku+i));
